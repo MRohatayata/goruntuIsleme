@@ -1,29 +1,15 @@
-from dizinSettings import getParentFolder
 import cv2
+import numpy as np
 
-def findMax(mat) :
-    max = mat[0][0]
-    for i in range(len(resim)):
-        for j in range(len(resim[0])) :
-            k = mat[i][j]
-            if max < k :
-                max = k
-    return max
+cap = cv2.VideoCapture(0)
+ret, image = cap.read()
+hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+lower_red = np.array([0, 100, 100])
+upper_red = np.array([10, 255, 255])
+mask = cv2.inRange(hsv, lower_red, upper_red)
+result = cv2.bitwise_and(image, image, mask=mask)
 
-
-parentFolder = getParentFolder()
-resim = parentFolder + "resimler\\kurtResmi.jpg"
-
-resim = cv2.imread(resim,0)
-
-cv2.imshow("kurtcuk :)", resim)
-resiMax = findMax(resim)
-for i in range(len(resim)):
-    for j in range(len(resim[0])) :
-        resim[i][j] = resiMax - resim[i][j]
-print("Herhangi Bir Tusa Basiniz..")
-cv2.waitKey(0)
-cv2.imshow("kurtcuk :)", resim)
-
+cv2.imshow('Original Image', image)
+cv2.imshow('Red Only', result)
 cv2.waitKey(0)
 cv2.destroyAllWindows()
