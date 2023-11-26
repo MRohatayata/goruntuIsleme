@@ -1,6 +1,6 @@
 import cv2
 import numpy as np
-image = cv2.imread('odev3Foto', cv2.IMREAD_COLOR)
+image = cv2.imread('odev3Foto.jpg', cv2.IMREAD_COLOR)
 image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 gray = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
 _, thresh = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
